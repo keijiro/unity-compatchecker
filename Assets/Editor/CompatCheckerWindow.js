@@ -52,9 +52,17 @@ class CompatCheckerWindow extends EditorWindow {
         EditorGUILayout.EndScrollView();
     }
 
+    function GetMonoLibPath() {
+        var base = EditorApplication.applicationContentsPath;
+        // (Windows)
+        var libPath = Path.Combine(base, "Mono/lib/mono");
+        if (Directory.Exists(libPath)) return libPath;
+        // (Mac)
+        return Path.Combine(base, "Frameworks/Mono/lib/mono");
+    }
+
     function ReloadAssemblies() {
-        var libPath = Path.Combine(EditorApplication.applicationContentsPath, "Frameworks/Mono/lib/mono");
-        var dllPath = Path.Combine(libPath, profiles[profileIndex]);
+        var dllPath = Path.Combine(GetMonoLibPath(), profiles[profileIndex]);
         var dllFiles = Directory.GetFiles(dllPath, "*.dll");
         assemblies = new AssemblyDefinition[dllFiles.Length];
         for (var i = 0; i < dllFiles.Length; i++) {
