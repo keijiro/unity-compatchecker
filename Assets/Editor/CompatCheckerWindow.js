@@ -4,8 +4,6 @@ import Mono.Cecil;
 import System.IO;
 
 class CompatCheckerWindow extends EditorWindow {
-    static var basePath = "/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono";
-
     var profiles : String[] = ["2.0", "micro", "unity", "unity_web"];
     var profileIndex = 0;
 
@@ -55,7 +53,8 @@ class CompatCheckerWindow extends EditorWindow {
     }
 
     function ReloadAssemblies() {
-        var dllPath = basePath + "/" + profiles[profileIndex];
+        var libPath = Path.Combine(EditorApplication.applicationContentsPath, "Frameworks/Mono/lib/mono");
+        var dllPath = Path.Combine(libPath, profiles[profileIndex]);
         var dllFiles = Directory.GetFiles(dllPath, "*.dll");
         assemblies = new AssemblyDefinition[dllFiles.Length];
         for (var i = 0; i < dllFiles.Length; i++) {
