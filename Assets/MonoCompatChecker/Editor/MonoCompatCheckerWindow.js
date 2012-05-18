@@ -3,7 +3,7 @@
 import Mono.Cecil;
 import System.IO;
 
-class CompatCheckerWindow extends EditorWindow {
+class MonoCompatCheckerWindow extends EditorWindow {
     var profiles : String[] = ["2.0", "micro", "unity", "unity_web"];
     var profileIndex = 0;
 
@@ -16,10 +16,10 @@ class CompatCheckerWindow extends EditorWindow {
     var result = "";
     var scroll = Vector2.zero;
 
-    @MenuItem ("Window/.NET Compat Checker")
-    static function CompatCheckerMenuItem () {
-        var window = ScriptableObject.CreateInstance.<CompatCheckerWindow>();
-        window.title = ".NET Compat";
+    @MenuItem ("Window/Mono Compatibility Checker")
+    static function MonoCompatCheckerMenuItem () {
+        var window = ScriptableObject.CreateInstance.<MonoCompatCheckerWindow>();
+        window.title = "Mono Compat";
         window.ReloadAssemblies();
         window.Show();
     }
