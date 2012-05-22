@@ -20,7 +20,6 @@ class MonoCompatCheckerWindow extends EditorWindow {
     static function MonoCompatCheckerMenuItem () {
         var window = ScriptableObject.CreateInstance.<MonoCompatCheckerWindow>();
         window.title = "Mono Compat";
-        window.ReloadAssemblies();
         window.Show();
     }
     
@@ -73,6 +72,8 @@ class MonoCompatCheckerWindow extends EditorWindow {
     function DoSearch() {
         result = "";
         scroll = Vector2.zero;
+
+        if (!assemblies) ReloadAssemblies();
 
         for (var asm in assemblies) {
             for (var type in asm.MainModule.Types) {
